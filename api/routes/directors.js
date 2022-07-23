@@ -64,7 +64,9 @@ router.post("/", (req, res, next) => {
 router.get("/:directorId", (req, res, next) => {
   const directorId = req.params.directorId;
   director
-    .findById(directorId)
+    .findOne({
+      id: directorId,
+    })
     .select("name _id movie")
     .exec()
     .then((director) => {
@@ -105,6 +107,7 @@ router.patch("/:directorId", (req, res, next) => {
       }
     )
     .then((result) => {
+      console.log(result)
       res.status(200).json({
         message: messages.directorUpdated,
         director: {
