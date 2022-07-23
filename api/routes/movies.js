@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const messages = require("../../messages/messages");
 const router = express.Router();
 const Movie = require("../models/movie");
 
@@ -38,8 +39,8 @@ router.post("/", (req, res, next) => {
   newMovie
     .save()
     .then((result) => {
-      res.status(200).json({
-        message: "Movie Saved",
+      res.status(201).json({
+        message: messages.movieSaved,
         movie: {
           title: result.title,
           director: result.director,
@@ -107,7 +108,7 @@ router.patch("/:movieId", (req, res, next) => {
   )
     .then((result) => {
       res.status(200).json({
-        message: "Updated Movie",
+        message: messages.movieUpdated,
         movie: {
           acknowledged: result.acknowledged,
           modifiedCount: result.modifiedCount,
@@ -138,7 +139,7 @@ router.delete("/:movieId", (req, res, next) => {
   })
     .then((result) => {
       res.status(200).json({
-        message: "Deleted Movie",
+        message: messages.movieDeleted,
         movie: {
           acknowledged: result.acknowledged,
           deletedCount: res.deletedCount,
